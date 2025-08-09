@@ -1,4 +1,4 @@
-# ☁️ AI Automation 🤖 for SOC 🛡️ and Endpoint Security
+# ☁️ Securing AWS Endpoint with Elastic SIEM & AI Automation 🤖
 
 ![AWS](https://img.shields.io/badge/Cloud-AWS-orange)
 ![Elastic](https://img.shields.io/badge/SIEM-Elastic-blue)
