@@ -6,13 +6,15 @@
 ![Windows Server](https://img.shields.io/badge/OS-Windows%20Server%202025-lightgrey)
 ![AI](https://img.shields.io/badge/AI-Integrated-green)
 
-This lab replicates real-world SOC workflows from log ingestion and correlation to automated alert triage and incident escalation driven by AI-powered orchestration.
+This lab replicates real-world SOC workflows from log ingestion and correlation to automated alert triage and incident escalation driven by **AI-powered orchestration**.
 
 ## 🎯 Objective
 
-Deploy a Windows Server 2025 endpoint on AWS EC2, integrate it with Elastic SIEM for log ingestion and detection, and connect it to Tines for AI-driven alert automation. The setup demonstrates end-to-end endpoint security monitoring with automated incident handling.
+I built this lab to explore how cloud-hosted endpoints can be monitored and protected using **Elastic SIEM** and **AI-driven automation** with Tines. My goal was to simulate a complete detection and response cycle, from collecting endpoint logs to automating incident triage in a way that mirrors actual SOC workflows.
+
 
 ## 🧠 Skills Demonstrated
+
 - Deployment and configuration of **Windows Server 2025** on AWS EC2
 - Installation and setup of **Elastic Agent** for log forwarding
 - Creation and tuning of **Elastic SIEM correlation rules**
@@ -21,13 +23,15 @@ Deploy a Windows Server 2025 endpoint on AWS EC2, integrate it with Elastic SIEM
 - Workflow automation for SOC tasks using AI-powered orchestration
 - Simulation of detection and response scenarios
 
-# 🛠️ Setup Walkthrough
+## 🛠️ Setup Walkthrough
 
-The AWS-hosted Windows Server 2025 instance serves as the monitored endpoint in this lab. Logs from the endpoint are forwarded to **Elastic SIEM** via the Elastic Agent, where detection rules identify suspicious activity. When an alert is triggered, **Tines** automatically evaluates it, dismissing false positives or escalating incidents to an analyst.
+I started by spinning up a Windows Server 2025 instance on AWS EC2 to serve as my monitored endpoint. After installing the Elastic Agent, I configured it to send security event logs to **Elastic SIEM**, where I had set up detection rules to catch suspicious activities.  
+
+Once the SIEM was generating alerts, I connected **Tines** to automate the triage process. Tines would check the alert context, decide if it was a false positive or a genuine incident, and then either close it or escalate it to me for review. This allowed me to test both the detection and response phases without manual intervention for every alert.
 
 ## 🚀 Deployment Steps
-1. Provisioned a **Windows Server 2025** instance on AWS EC2
-2. Installed the **Elastic Agent** to forward security logs
-3. Configured **Elastic SIEM** detection and correlation rules
-4. Integrated **Tines** to receive and process alerts from Elastic
-5. Simulated attack scenarios to validate detection and automation workflows
+1. Launched a **Windows Server 2025** EC2 instance in AWS
+2. Installed the **Elastic Agent** and configured log forwarding
+3. Created **Elastic SIEM** detection and correlation rules
+4. Integrated **Tines** with Elastic for automated alert workflows
+5. Simulated security events to test detection and automation
