@@ -22,15 +22,16 @@ I built this lab to explore how cloud-hosted endpoints can be monitored and prot
 - Workflow automation for SOC tasks using AI-powered orchestration
 - Simulation of detection and response scenarios
 
-## 🛠️ Setup Walkthrough
+# 🛠️ Setup Walkthrough
 
 I started by spinning up a Windows Server 2025 instance on AWS EC2 to serve as my monitored endpoint. After installing the Elastic Agent, I configured it to send security event logs to **Elastic SIEM**, where I had set up detection rules to catch suspicious activities.  
 
 Once the SIEM was generating alerts, I connected **Tines** to automate the triage process. Tines would check the alert context, decide if it was a false positive or a genuine incident, and then either close it or escalate it to me for review. This allowed me to test both the detection and response phases without manual intervention for every alert.
 
-💡 If you don’t already have an AWS account, take a look at this guide before starting: [AWS Account Setup](https://learn.nextwork.org/projects/aws-account-setup)
+> 💡 If you don’t already have an AWS account, take a look at this guide before starting: [AWS Account Setup](https://learn.nextwork.org/projects/aws-account-setup)
 
-1️⃣ **Launch AWS EC2 Instance**  
+### 1️⃣ **Launch AWS EC2 Instance**  
+
 I started by creating a Windows Server 2025 instance in AWS EC2 to serve as the monitored endpoint for this lab.  
 - **AMI**: Windows Server 2025 (latest available build)  
 - **Instance type**: t3.medium (2 vCPU, 4 GB RAM)  
@@ -38,20 +39,24 @@ I started by creating a Windows Server 2025 instance in AWS EC2 to serve as the 
 - **Networking**: Placed in default VPC with inbound RDP (3389) allowed from my IP  
 After launching, I retrieved the admin password from the AWS console, connected via RDP, and completed initial Windows updates.
 
-2️⃣ **Install Elastic Agent**  
+### 2️⃣ **Install Elastic Agent**  
+
 In Elastic Cloud, I navigated to **Fleet → Add Agent**, selected **Windows**, and copied the provided PowerShell install command.  
 On the EC2 instance, I ran the command in an elevated PowerShell session, which downloaded, installed, and enrolled the Elastic Agent into Fleet.  
 After a few minutes, the agent showed as **Healthy** in the Elastic dashboard.
 
-3️⃣ **Enable and Configure SIEM Rules**  
+### 3️⃣ **Enable and Configure SIEM Rules**  
+
 Inside the Elastic Security app, I enabled a set of built-in Windows rules to detect:  
 - Suspicious PowerShell execution  
 - RDP brute force attempts  
 - Service installation events  
 I also set rules to generate alerts directly in the Elastic Security console for faster testing.
 
-4️⃣ **Integrate with Tines**  
+### 4️⃣ **Integrate with Tines**  
+
 I created a new **Story** in Tines to receive alerts from Elastic via webhook.  
+
 The workflow:  
 - Receive alert JSON payload from Elastic  
 - Parse event details (host, user, rule name, severity)  
@@ -59,7 +64,8 @@ The workflow:
 - Else → send escalation to my email for review  
 This allowed me to automate triage and reduce manual alert handling.
 
-5️⃣ **Simulate and Validate the Workflow**  
+### 5️⃣ **Simulate and Validate the Workflow**  
+
 To test end-to-end functionality, I generated benign triggers such as multiple failed RDP logins and harmless PowerShell commands.  
 The events were ingested by Elastic, matched to active rules, and sent to Tines.  
 Tines correctly closed low-priority events and escalated high-priority detections, confirming the lab workflow was operational.
