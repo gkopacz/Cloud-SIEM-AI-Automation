@@ -6,7 +6,7 @@
 ![Windows Server](https://img.shields.io/badge/OS-Windows%20Server%202025-lightgrey)
 ![AI](https://img.shields.io/badge/AI-Integrated-green)
 
-This lab replicates real-world SOC workflows from log ingestion and correlation to automated alert triage and incident escalation driven by **AI-powered orchestration**.
+This lab replicates a real SOC workflow from collecting endpoint logs to correlating events in Elastic SIEM and using AI automation in Tines for alert triage and incident escalation.
 
 ## 🎯 Objective
 
