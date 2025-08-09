@@ -1,4 +1,4 @@
-# AWS Elastic SIEM + Tines AI Automation for SOC and Endpoint Security
+# ☁️ AI Automation 🤖 for SOC 🛡️ and Endpoint Security
 
 ![AWS](https://img.shields.io/badge/Cloud-AWS-orange)
 ![Elastic](https://img.shields.io/badge/SIEM-Elastic-blue)
