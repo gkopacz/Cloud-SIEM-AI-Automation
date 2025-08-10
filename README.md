@@ -114,9 +114,7 @@ I logged into my **Tines** workspace and clicked **New Story**, naming it `Admin
 
 ![Elastic Cloud - initialize](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/init_workflow.png)
 
-From the left-hand menu, I dragged the **Webhook** action onto the canvas.
-
-This is the **entry point** for the alert that Elastic SIEM sends.
+From the left-hand menu, I dragged the **Webhook** action onto the canvas. This is the **entry point** for the alert that Elastic SIEM sends.
 
 ![Elastic Cloud - webhook](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_webhook.png)
 
