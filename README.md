@@ -118,9 +118,7 @@ From the left-hand menu, I dragged the **Webhook** action onto the canvas. This 
 
 ![Elastic Cloud - webhook](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_webhook.png)
 
-Next, I dragged an **AI** action from the menu and connected it to my **Webhook Action**.
-
-I renamed it **Summarize webhook data** and set the **Prompt** to:
+Next, I dragged an **AI** action from the menu and connected it to my **Webhook Action**. I renamed it **Summarize webhook data** and set the **Prompt** to:
 
 ```
 Summarize the following data in one sentence.
@@ -128,9 +126,9 @@ Provide some next action steps for the analyst to take when retrieving this aler
 Format this into bullet points to make it easy to read for the email.
 ```
 
-![Elastic Cloud - sumarize](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_sumarize.png)
+I made sure to reference the webhook data by adding: `{{ webhook_action }}`
 
-> 💡 I made sure to reference the webhook data by adding: `{{ webhook_action }}`
+![Elastic Cloud - sumarize](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_sumarize.png)
 
 Finally, I dragged a **Send Email** action onto the canvas and connected it to my **AI Action**.
 
