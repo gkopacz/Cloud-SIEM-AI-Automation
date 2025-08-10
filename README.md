@@ -14,12 +14,12 @@ I built this lab to explore how cloud-hosted endpoints can be monitored and prot
 
 ## 🧠 Skills Demonstrated
 - Deployment and configuration of **Windows Server 2025** on AWS EC2
-- Installation and setup of **Elastic Agent** for log forwarding
-- Creation and tuning of **Elastic SIEM correlation rules**
-- Integration of **Tines** for automated alert triage and escalation
-- Endpoint security configuration (firewall, antivirus, logging)
-- Workflow automation for SOC tasks using AI-powered orchestration
-- Simulation of detection and response scenarios
+- Installation and setup of **Elastic Agent** with **Elastic Defender (EDR)** for endpoint monitoring
+- Log forwarding from the endpoint to **Elastic SIEM**
+- Creation of a **custom Elastic SIEM detection rule** for admin sign-ins
+- Integration of **Elastic SIEM** with **Tines** via webhook for automated alert handling
+- Design of a **Tines automation workflow** using AI summarization and email notifications
+- Simulation of an admin login to trigger detection and validate automation
 
 # 🛠️ Setup Walkthrough
 
@@ -182,4 +182,38 @@ In **Rule Actions**, I added my `Tines_Webhook_Admin_Sign-in` connector. I set i
 
 ## 5️⃣ **Simulate and Validate the Workflow**  
 
+With my Elastic SIEM detection rule and Tines automation workflow fully configured, it was time to test the entire pipeline, from detection to automated triage and email alerting.
 
+To simulate a real scenario, I initiated an admin login to my Windows Server 2025 instance hosted in AWS EC2. 
+
+Using the AWS console, I navigated to the RDP client tab for my instance, decrypted the password, and downloaded the .rdp file to connect.
+
+![Elastic Cloud - rdp](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/ec2_rdp.png)
+
+Once I logged in, the Elastic Agent on the server captured the event and forwarded it to Elastic SIEM. The alert immediately appeared in the **Elastic Security → Alerts** panel.
+
+![Elastic Cloud - alerts_panel](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/elastic_ec2_alerts.png)
+
+Because my detection rule was connected to the **Tines_Webhook_Admin_Sign-in** webhook, the alert payload was automatically sent to my Tines workflow, containing data such as the rule name, description, and relevant metadata.
+
+![Elastic Cloud - webhook_json](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/webhook_json.png)
+
+A few moments later, I received the email with the subject **"New Alert!"**.  
+
+It contained the summary and recommendations, although they weren’t formatted in bullet points as intended, not sure why, something to troubleshoot later.  
+
+The email included:  
+
+- A concise summary of the detection  
+- Investigation guidance, such as checking the source IP, validating the login time, and correlating with other events  
+- Recommendations for further monitoring and possible mitigation steps  
+
+![Elastic Cloud - email-alert](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/email_alert.png)
+
+## 📌 Closing Notes
+
+This test confirmed that the entire chain worked exactly as designed:  
+**log ingestion → detection → webhook → AI analysis → email notification**
+
+This project showed how a single detection can flow from **endpoint logs** to an **AI-generated alert email** in minutes.  
+Next, I’ll explore expanding automation with more detection rules, threat intelligence enrichment, and real-time dashboards to make this lab even more capable.
