@@ -30,7 +30,7 @@ I started by spinning up a Windows Server 2025 instance on AWS EC2 to serve as m
 
 Once the SIEM was generating alerts, I connected **Tines** to automate the triage process. Tines would check the alert context, decide if it was a false positive or a genuine incident, and then either close it or escalate it to me for review. This allowed me to test both the detection and response phases without manual intervention for every alert.
 
-### 1️⃣ **Launch AWS EC2 Instance**  
+## 1️⃣ **Launch AWS EC2 Instance**  
 
 I started by creating a Windows Server 2025 instance in AWS EC2 to serve as the monitored endpoint for this lab.  
 
