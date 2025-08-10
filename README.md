@@ -66,9 +66,32 @@ On the next screen, I uploaded my previously downloaded **Windows-Srv-key.pem** 
 
 ## 2️⃣ **Install Elastic Agent**  
 
-In Elastic Cloud, I navigated to **Fleet → Add Agent**, selected **Windows**, and copied the provided PowerShell install command.  
-On the EC2 instance, I ran the command in an elevated PowerShell session, which downloaded, installed, and enrolled the Elastic Agent into Fleet.  
-After a few minutes, the agent showed as **Healthy** in the Elastic dashboard.
+With the AWS instance running, I proceeded to install the Elastic Agent so that logs from the Windows Server could be sent to Elastic SIEM for monitoring and analysis.  
+
+First, I logged into [Elastic Cloud](https://cloud.elastic.co/) and created a new account. 
+
+I clicked **Start Free Trial** and made sure to select **Elastic SIEM** during the setup process so the deployment would include all necessary SIEM features by default.  
+
+Once the deployment was ready, I navigated to **Fleet → Agents → Add Agent**.   
+
+![Elastic Cloud - Add Agent Menu](images/placeholder_add_agent.png)  
+
+I selected **Windows** as the platform and copied the provided PowerShell installation command.
+
+image here
+
+On the Windows Server, I opened **PowerShell as Administrator** and pasted the installation command. This command downloaded the Elastic Agent MSI, installed it, and enrolled it into the Fleet using the enrollment token from Elastic Cloud.  
+
+![Windows PowerShell - Installing Elastic Agent](images/placeholder_install_agent.png)  
+
+Once the installation was complete, I returned to the Elastic Cloud Fleet dashboard to confirm the agent’s status. The agent showed as **Healthy**, indicating it was successfully connected and sending data.  
+
+![Elastic Cloud - Agent Healthy](images/placeholder_agent_healthy.png)  
+
+Finally, I verified that the Windows integration was active by checking the Elastic Security app and confirming that endpoint events were appearing in the logs.  
+
+![Elastic Security - Incoming Windows Logs](images/placeholder_windows_logs.png)  
+
 
 ## 3️⃣ **Enable and Configure SIEM Rules**  
 
