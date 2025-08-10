@@ -35,16 +35,20 @@ Once the SIEM was generating alerts, I connected **Tines** to automate the triag
 I started by creating a Windows Server 2025 instance in AWS EC2 to serve as the monitored endpoint for this lab.  
 
 I named the instance **Windows-Srv** and selected the **Microsoft Windows Server 2025 Base** AMI from the Quick Start tab. 
+
 This AMI is free tier eligible and provided directly by Amazon.
 
 ![AWS EC2 - Name and AMI Selection](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Name_and_machine_type.png)
 
 I chose the **m7i-flex.large** instance type (2 vCPU, 8 GB RAM) and created a new key pair named **Windows-Srv-key** for RDP access. 
+
 The `.pem` file was downloaded and saved localy.  
 
 ![AWS EC2 - Instance Type and Key Pair](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/instance_and_key.png)  
 
-In the network settings, I allowed inbound **RDP traffic** only from my IP address and configured **30 GB gp3 SSD storage**. Encryption was left disabled.  
+In the network settings, I allowed inbound **RDP traffic** only from my IP address and configured **30 GB gp3 SSD storage**. 
+
+Encryption was left disabled.  
 
 ![AWS EC2 - Network Settings and Storage](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/network_and_storage.png)  
 
@@ -52,15 +56,21 @@ After reviewing all settings, I clicked **Launch instance** to deploy the server
 
 ![AWS EC2 - Launch Instance](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/launch_instance.png)
 
-After launching, I retrieved the admin password from the AWS console, connected via RDP, and completed initial Windows updates.
+Once the instance was running, I selected it from the EC2 dashboard, clicked **Actions → Security → Get Windows password**.  
 
-### 2️⃣ **Install Elastic Agent**  
+![AWS EC2 - Get Windows Password](docs/screenshots/get_windows_password.png)  
+
+On the next screen, I uploaded my previously downloaded **Windows-Srv-key.pem** file and clicked **Decrypt password** to reveal the Administrator login credentials.  
+
+![AWS EC2 - Decrypt Password](docs/screenshots/decrypt_password.png)  
+
+## 2️⃣ **Install Elastic Agent**  
 
 In Elastic Cloud, I navigated to **Fleet → Add Agent**, selected **Windows**, and copied the provided PowerShell install command.  
 On the EC2 instance, I ran the command in an elevated PowerShell session, which downloaded, installed, and enrolled the Elastic Agent into Fleet.  
 After a few minutes, the agent showed as **Healthy** in the Elastic dashboard.
 
-### 3️⃣ **Enable and Configure SIEM Rules**  
+## 3️⃣ **Enable and Configure SIEM Rules**  
 
 Inside the Elastic Security app, I enabled a set of built-in Windows rules to detect:  
 - Suspicious PowerShell execution  
@@ -68,7 +78,7 @@ Inside the Elastic Security app, I enabled a set of built-in Windows rules to de
 - Service installation events  
 I also set rules to generate alerts directly in the Elastic Security console for faster testing.
 
-### 4️⃣ **Integrate with Tines**  
+## 4️⃣ **Integrate with Tines**  
 
 I created a new **Story** in Tines to receive alerts from Elastic via webhook.  
 
@@ -79,7 +89,7 @@ The workflow:
 - Else → send escalation to my email for review  
 This allowed me to automate triage and reduce manual alert handling.
 
-### 5️⃣ **Simulate and Validate the Workflow**  
+## 5️⃣ **Simulate and Validate the Workflow**  
 
 To test end-to-end functionality, I generated benign triggers such as multiple failed RDP logins and harmless PowerShell commands.  
 The events were ingested by Elastic, matched to active rules, and sent to Tines.  
