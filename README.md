@@ -62,7 +62,7 @@ On the next screen, I uploaded my previously downloaded **Windows-Srv-key.pem** 
 
 ![AWS EC2 - Decrypt Password](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/decrypt_password.png)  
 
-## 2️⃣ **Install Elastic Agent**  
+## 2️⃣ **Install Elastic Agent and Elastic Defender**  
 
 With the AWS instance running, I proceeded to install the Elastic Agent so that logs from the Windows Server could be sent to Elastic SIEM for monitoring and analysis.  
 
@@ -95,6 +95,16 @@ Once the installation was complete, I returned to the Elastic Cloud Fleet dashbo
 The agent showed as **Healthy**, indicating it was successfully connected and sending data.  
 
 ![Elastic Cloud - agent_done](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/agent-installed.png)  
+
+Once the agent was enrolled, I added the **Elastic Defend** integration to my `Windows-Srv-AWS` agent policy.  
+
+![Elastic Cloud - integration](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/add_integration.png)
+
+I named the integration `Elastic-Defend-WinSrv-AWS` and selected **Complete EDR (Endpoint Detection & Response)** to enable full telemetry, NGAV, and endpoint protection features.
+
+![Elastic Cloud - integration](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/edit_integration.png)
+
+> 💡 By doing this, Elastic Defend was **automatically deployed** to my AWS Windows Server endpoint via the Elastic Agent, providing real-time monitoring and protection.  
 
 ## 3️⃣ **Enable and Configure SIEM Rules**  
 
