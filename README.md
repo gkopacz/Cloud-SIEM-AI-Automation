@@ -100,7 +100,7 @@ Once the agent was enrolled, I added the **Elastic Defend** integration to my `W
 
 ![Elastic Cloud - integration](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/add_integration.png)
 
-I named the integration `Elastic-Defend-WinSrv-AWS` and selected **Complete EDR (Endpoint Detection & Response)** to enable full telemetry, NGAV, and endpoint protection features.
+I named the integration `Elastic-Defend-WinSrv-AWS` and selected **Complete EDR (Endpoint Detection & Response)** to enable full telemetry.
 
 ![Elastic Cloud - integration](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/edit_integration.png)
 
