@@ -6,11 +6,11 @@
 ![Windows Server](https://img.shields.io/badge/OS-Windows%20Server%202025-lightgrey)
 ![AI](https://img.shields.io/badge/AI-Integrated-green)
 
-This lab replicates a real SOC workflow from collecting endpoint logs to correlating events in Elastic SIEM and using AI automation in Tines for alert triage and incident escalation.
+This lab replicates a real SOC workflow from collecting endpoint logs to correlating events in Elastic SIEM and using AI automation in Tines for alert summarization.
 
 ## 🎯 Objective
 
-I built this lab to explore how cloud-hosted endpoints can be monitored and protected using **Elastic SIEM** and **AI-driven automation** with Tines. My goal was to simulate a complete detection and response cycle, from collecting endpoint logs to automating incident triage in a way that mirrors actual SOC workflows.
+I built this lab to explore how cloud-hosted endpoints can be monitored and protected using **Elastic SIEM** and **AI-driven automation** with Tines. My goal was to simulate a complete detection and response cycle, from collecting endpoint logs to automating alerts in a way that mirrors actual SOC workflows.
 
 ## 🧠 Skills Demonstrated
 - Deployment and configuration of **Windows Server 2025** on AWS EC2
@@ -24,6 +24,7 @@ I built this lab to explore how cloud-hosted endpoints can be monitored and prot
 # 🛠️ Setup Walkthrough
 
 I started by spinning up a Windows Server 2025 instance on AWS EC2 to serve as my monitored endpoint. After installing the Elastic Agent, I configured it to send security event logs to **Elastic SIEM**, where I had set up detection rules to catch suspicious activities.  
+
 > 💡 If you don’t already have an AWS account, take a look at this guide before starting: [AWS Account Setup](https://learn.nextwork.org/projects/aws-account-setup)
 
 Once the SIEM was generating alerts, I connected **Tines** to automate the triage process. Tines would check the alert context, decide if it was a false positive or a genuine incident, and then either close it or escalate it to me for review. This allowed me to test both the detection and response phases without manual intervention for every alert.
