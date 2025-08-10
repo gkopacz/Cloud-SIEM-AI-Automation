@@ -35,13 +35,11 @@ Once the SIEM was generating alerts, I connected **Tines** to automate the triag
 I started by creating a Windows Server 2025 instance in AWS EC2 to serve as the monitored endpoint for this lab.  
 
 I named the instance **Windows-Srv** and selected the **Microsoft Windows Server 2025 Base** AMI from the Quick Start tab. 
-
 This AMI is free tier eligible and provided directly by Amazon.
 
 ![AWS EC2 - Name and AMI Selection](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Name_and_machine_type.png)
 
 I chose the **m7i-flex.large** instance type (2 vCPU, 8 GB RAM) and created a new key pair named **Windows-Srv-key** for RDP access. 
-
 The `.pem` file was downloaded and saved localy.  
 
 ![AWS EC2 - Instance Type and Key Pair](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/instance_and_key.png)  
