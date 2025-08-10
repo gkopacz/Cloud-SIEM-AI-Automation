@@ -62,7 +62,7 @@ On the next screen, I uploaded my previously downloaded **Windows-Srv-key.pem** 
 
 ![AWS EC2 - Decrypt Password](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/decrypt_password.png)  
 
-## 2️⃣ **Install Elastic Agent and Elastic Defender**  
+## 2️⃣ **Install Elastic Agent & Integrate Elastic Defender**  
 
 With the AWS instance running, I proceeded to install the Elastic Agent so that logs from the Windows Server could be sent to Elastic SIEM for monitoring and analysis.  
 
@@ -106,6 +106,59 @@ I named the integration `Elastic-Defend-WinSrv-AWS` and selected **Complete EDR 
 
 > 💡 By doing this, Elastic Defend was **automatically deployed** to my AWS Windows Server endpoint via the Elastic Agent, providing real-time monitoring and protection.  
 
+## 3️⃣ Create Workflow Automation in Tines
+
+I moved on to building an automated workflow in **Tines** that will process the alert, generate an AI summary, and email it directly to me.
+
+I logged into my **Tines** workspace and clicked **New Story**, naming it `Admin_Sign-in_Detection` so I could easily identify it later.
+
+![Elastic Cloud - initialize](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/init_workflow.png)
+
+From the left-hand menu, I dragged the **Webhook** action onto the canvas.
+
+This is the **entry point** for the alert that Elastic SIEM sends.
+
+![Elastic Cloud - webhook](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_webhook.png)
+
+Next, I dragged an **AI** action from the menu and connected it to my **Webhook Action**.
+
+I renamed it **Summarize webhook data** and set the **Prompt** to:
+
+```
+Summarize the following data in one sentence.
+Provide some next action steps for the analyst to take when retrieving this alert.
+Format this into bullet points to make it easy to read for the email.
+```
+
+![Elastic Cloud - sumarize](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_sumarize.png)
+
+> 💡 I made sure to reference the webhook data by adding: `{{ webhook_action }}`
+
+Finally, I dragged a **Send Email** action onto the canvas and connected it to my **AI Action**.
+
+I configured it as seen in the image below.
+
+![Elastic Cloud - email](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/workflow_email.png)
+
+At this point, my workflow looked like this:
+
+1️⃣ **Webhook Action** → receives the alert from Elastic  
+2️⃣ **Summarize webhook data** (AI Action) → processes and formats the alert details  
+3️⃣ **Send Email Action** → delivers the summary to my inbox
+
+![Elastic Cloud - email](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Automation_flow_init.png)
+
+
+## 4️⃣ 
+
+## 5️⃣ **Simulate and Validate the Workflow**  
+
+To test end-to-end functionality, I generated benign triggers such as multiple failed RDP logins and harmless PowerShell commands.  
+The events were ingested by Elastic, matched to active rules, and sent to Tines.  
+Tines correctly closed low-priority events and escalated high-priority detections, confirming the lab workflow was operational.
+
+
+
 ## 3️⃣ **Enable and Configure SIEM Rules**  
 
 Inside the Elastic Security app, I enabled a set of built-in Windows rules to detect:  
@@ -113,20 +166,3 @@ Inside the Elastic Security app, I enabled a set of built-in Windows rules to de
 - RDP brute force attempts  
 - Service installation events  
 I also set rules to generate alerts directly in the Elastic Security console for faster testing.
-
-## 4️⃣ **Integrate with Tines**  
-
-I created a new **Story** in Tines to receive alerts from Elastic via webhook.  
-
-The workflow:  
-- Receive alert JSON payload from Elastic  
-- Parse event details (host, user, rule name, severity)  
-- If low severity or known test activity → close  
-- Else → send escalation to my email for review  
-This allowed me to automate triage and reduce manual alert handling.
-
-## 5️⃣ **Simulate and Validate the Workflow**  
-
-To test end-to-end functionality, I generated benign triggers such as multiple failed RDP logins and harmless PowerShell commands.  
-The events were ingested by Elastic, matched to active rules, and sent to Tines.  
-Tines correctly closed low-priority events and escalated high-priority detections, confirming the lab workflow was operational.
