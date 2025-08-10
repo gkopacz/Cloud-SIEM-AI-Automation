@@ -151,13 +151,13 @@ With my Tines workflow ready, I needed to connect **Elastic SIEM** so that it co
 
 I started in Elastic by navigating to **Management → Stack Management → Connectors** and clicking **Create connector**.
 
-![Elastic Cloud - connector](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Stack_mgmt_connector.png)
+![Elastic Cloud - connector](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Stack_mgmt_connectors.png)
 
 I chose **Webhook** as the type and named it `Tines_Webhook_Admin_Sign-in`. For the URL, I pasted my webhook URL from Tines Webhook. 
 
 I kept authentication set to **None**, selected **POST** as the method, and saved the connector.
 
-![Elastic Cloud - webhook_elastic](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/webhook_elastic.png)
+![Elastic Cloud - webhook_elastic](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/weebhook_elastic.png)
 
 Next, I went to **Security → Rules** and clicked **Create new rule**.
 
