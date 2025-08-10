@@ -96,10 +96,6 @@ The agent showed as **Healthy**, indicating it was successfully connected and se
 
 ![Elastic Cloud - agent_done](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/agent-installed.png)  
 
-Finally, I verified that the Windows integration was active by checking the Elastic Security app and confirming that endpoint events were appearing in the logs.  
-
-![Elastic Security - Incoming Windows Logs](images/placeholder_windows_logs.png)  
-
 ## 3️⃣ **Enable and Configure SIEM Rules**  
 
 Inside the Elastic Security app, I enabled a set of built-in Windows rules to detect:  
