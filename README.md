@@ -58,11 +58,11 @@ After reviewing all settings, I clicked **Launch instance** to deploy the server
 
 Once the instance was running, I selected it from the EC2 dashboard, clicked **Actions → Security → Get Windows password**.  
 
-![AWS EC2 - Get Windows Password](docs/screenshots/get_windows_password.png)  
+![AWS EC2 - Get Windows Password](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/get_windows_password.png)  
 
 On the next screen, I uploaded my previously downloaded **Windows-Srv-key.pem** file and clicked **Decrypt password** to reveal the Administrator login credentials.  
 
-![AWS EC2 - Decrypt Password](docs/screenshots/decrypt_password.png)  
+![AWS EC2 - Decrypt Password](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/decrypt_password.png)  
 
 ## 2️⃣ **Install Elastic Agent**  
 
