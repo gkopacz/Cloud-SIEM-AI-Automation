@@ -33,10 +33,23 @@ Once the SIEM was generating alerts, I connected **Tines** to automate the triag
 ### 1️⃣ **Launch AWS EC2 Instance**  
 
 I started by creating a Windows Server 2025 instance in AWS EC2 to serve as the monitored endpoint for this lab.  
-- **AMI**: Windows Server 2025 (latest available build)  
-- **Instance type**: t3.medium (2 vCPU, 4 GB RAM)  
-- **Storage**: 30 GB gp3 SSD  
-- **Networking**: Placed in default VPC with inbound RDP (3389) allowed from my IP  
+
+I named the instance **Windows-Srv** and selected the **Microsoft Windows Server 2025 Base** AMI from the Quick Start tab. This AMI is free tier eligible and provided directly by Amazon.
+
+![AWS EC2 - Name and AMI Selection](docs/screenshots/Name_and_machine_type.png)
+
+I chose the **m7i-flex.large** instance type (2 vCPU, 8 GB RAM) and created a new key pair named **Windows-Srv-key** for RDP access. The `.pem` file was downloaded and saved localy.  
+
+![AWS EC2 - Instance Type and Key Pair](docs/screenshots/instance_and_key.png)  
+
+In the network settings, I allowed inbound **RDP traffic** only from my IP address and configured **30 GB gp3 SSD storage**. Encryption was left disabled.  
+
+![AWS EC2 - Network Settings and Storage](docs/screenshots/network_and_storage.png)  
+
+After reviewing all settings, I clicked **Launch instance** to deploy the server.  
+
+![AWS EC2 - Launch Instance](docs/screenshots/launch_instance.png)
+
 After launching, I retrieved the admin password from the AWS console, connected via RDP, and completed initial Windows updates.
 
 ### 2️⃣ **Install Elastic Agent**  
