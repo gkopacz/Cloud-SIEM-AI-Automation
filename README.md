@@ -74,7 +74,7 @@ I clicked **Start Free Trial** and made sure to select **Elastic SIEM** during t
 
 Once the deployment was ready, I navigated to **Fleet → Agents → Add Agent**.   
 
-![Elastic Cloud - Add Agent Menu](images/placeholder_add_agent.png)  
+![Elastic Cloud - Add Agent Menu](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/add_agent_elastic.png)  
 
 I selected **Windows** as the platform and copied the provided PowerShell installation command.
 
