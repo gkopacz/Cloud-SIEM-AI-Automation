@@ -211,10 +211,10 @@ The email included:
 
 ![Elastic Cloud - email-alert](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/email_alert.png)
 
-## 📌 Closing Notes
-
 This test confirmed that the entire chain worked exactly as designed:  
 **log ingestion → detection → webhook → AI analysis → email notification**
+
+## 📌 Closing Notes
 
 This project showed how a single detection can flow from **endpoint logs** to an **AI-generated alert email** in minutes.  
 Next, I’ll explore expanding automation with more detection rules, threat intelligence enrichment, and real-time dashboards to make this lab even more capable.
