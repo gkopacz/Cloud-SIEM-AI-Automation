@@ -142,23 +142,44 @@ At this point, my workflow looked like this:
 2️⃣ **Summarize webhook data** (AI Action) → processes and formats the alert details  
 3️⃣ **Send Email Action** → delivers the summary to my inbox
 
-![Elastic Cloud - email](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Automation_flow_init.png)
+![Elastic Cloud - flow](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Automation_flow_init.png)
 
 
-## 4️⃣ 
+## 4️⃣ Create Elastic SIEM Alerts & Connect it to Tines
+
+With my Tines workflow ready, I needed to connect **Elastic SIEM** so that it could send alerts directly into it.
+
+I started in Elastic by navigating to **Management → Stack Management → Connectors** and clicking **Create connector**.
+
+![Elastic Cloud - connector](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/Stack_mgmt_connector.png)
+
+I chose **Webhook** as the type and named it `Tines_Webhook_Admin_Sign-in`. For the URL, I pasted my webhook URL from Tines Webhook. 
+
+I kept authentication set to **None**, selected **POST** as the method, and saved the connector.
+
+![Elastic Cloud - webhook_elastic](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/webhook_elastic.png)
+
+Next, I went to **Security → Rules** and clicked **Create new rule**.
+
+![Elastic Cloud - create_rule](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/create_siem_detection_rule.png)
+
+I chose a **Custom Query Rule** and left the **Index Patterns** as they where. For the query, I used: `event.code : "4672"`
+
+I named the rule `Admin_Log-in_Detection`, set the severity to **High**, and moved to the **Actions** section.
+
+![Elastic Cloud - admin_rule](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/admin_detection_rule.png)
+
+In **Rule Actions**, I added my `Tines_Webhook_Admin_Sign-in` connector. I set it to run **Per rule run** and added a JSON payload to pass the rule name and description to Tines:
+
+```json
+{
+  "rule_name" : "{{context.rule.name}}",
+  "description" : "{{context.rule.description}}"
+}
+```
+
+![Elastic Cloud - admin_rule_webhook](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/admin_rule_webhook.png)
 
 ## 5️⃣ **Simulate and Validate the Workflow**  
 
-To test end-to-end functionality, I generated benign triggers such as multiple failed RDP logins and harmless PowerShell commands.  
-The events were ingested by Elastic, matched to active rules, and sent to Tines.  
-Tines correctly closed low-priority events and escalated high-priority detections, confirming the lab workflow was operational.
 
-
-
-## 3️⃣ **Enable and Configure SIEM Rules**  
-
-Inside the Elastic Security app, I enabled a set of built-in Windows rules to detect:  
-- Suspicious PowerShell execution  
-- RDP brute force attempts  
-- Service installation events  
-I also set rules to generate alerts directly in the Elastic Security console for faster testing.
