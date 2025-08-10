@@ -12,7 +12,6 @@ This lab replicates a real SOC workflow from collecting endpoint logs to correla
 
 I built this lab to explore how cloud-hosted endpoints can be monitored and protected using **Elastic SIEM** and **AI-driven automation** with Tines. My goal was to simulate a complete detection and response cycle, from collecting endpoint logs to automating incident triage in a way that mirrors actual SOC workflows.
 
-
 ## 🧠 Skills Demonstrated
 - Deployment and configuration of **Windows Server 2025** on AWS EC2
 - Installation and setup of **Elastic Agent** for log forwarding
@@ -25,7 +24,6 @@ I built this lab to explore how cloud-hosted endpoints can be monitored and prot
 # 🛠️ Setup Walkthrough
 
 I started by spinning up a Windows Server 2025 instance on AWS EC2 to serve as my monitored endpoint. After installing the Elastic Agent, I configured it to send security event logs to **Elastic SIEM**, where I had set up detection rules to catch suspicious activities.  
-
 > 💡 If you don’t already have an AWS account, take a look at this guide before starting: [AWS Account Setup](https://learn.nextwork.org/projects/aws-account-setup)
 
 Once the SIEM was generating alerts, I connected **Tines** to automate the triage process. Tines would check the alert context, decide if it was a false positive or a genuine incident, and then either close it or escalate it to me for review. This allowed me to test both the detection and response phases without manual intervention for every alert.
@@ -72,26 +70,35 @@ First, I logged into [Elastic Cloud](https://cloud.elastic.co/) and created a ne
 
 I clicked **Start Free Trial** and made sure to select **Elastic SIEM** during the setup process so the deployment would include all necessary SIEM features by default.  
 
-Once the deployment was ready, I navigated to **Fleet → Agents → Add Agent**.   
+Once the deployment was ready, I navigated to **Assets → Fleet → Agents → Add Agent**.   
 
 ![Elastic Cloud - Add Agent Menu](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/add_agent_elastic.png)  
 
+I clicked Add agent, created a new agent policy named Windows-Srv-AWS, and confirmed that the System integration was included.
+
+![Elastic Cloud - Add Agent Menu](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/create-agent-policy.png)  
+
 I selected **Windows** as the platform and copied the provided PowerShell installation command.
 
-image here
+![Elastic Cloud - Add Agent Windows](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/powershell.png)  
 
-On the Windows Server, I opened **PowerShell as Administrator** and pasted the installation command. This command downloaded the Elastic Agent MSI, installed it, and enrolled it into the Fleet using the enrollment token from Elastic Cloud.  
+On the Windows Server, I opened **PowerShell as Administrator** and pasted the installation command. 
 
-![Windows PowerShell - Installing Elastic Agent](images/placeholder_install_agent.png)  
+![Elastic Cloud - AWS-powershell](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/aws-powershell.png)  
 
-Once the installation was complete, I returned to the Elastic Cloud Fleet dashboard to confirm the agent’s status. The agent showed as **Healthy**, indicating it was successfully connected and sending data.  
+This command downloaded the Elastic Agent MSI, installed it, and enrolled it into the Fleet using the enrollment token from Elastic Cloud.  
 
-![Elastic Cloud - Agent Healthy](images/placeholder_agent_healthy.png)  
+![Elastic Cloud - AWS_Powershell_Success](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/aws-powershell-success.png)  
+
+Once the installation was complete, I returned to the Elastic Cloud Fleet dashboard to confirm the agent’s status. 
+
+The agent showed as **Healthy**, indicating it was successfully connected and sending data.  
+
+![Elastic Cloud - agent_done](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/agent-installed.png)  
 
 Finally, I verified that the Windows integration was active by checking the Elastic Security app and confirming that endpoint events were appearing in the logs.  
 
 ![Elastic Security - Incoming Windows Logs](images/placeholder_windows_logs.png)  
-
 
 ## 3️⃣ **Enable and Configure SIEM Rules**  
 
