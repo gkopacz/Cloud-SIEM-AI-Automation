@@ -111,7 +111,7 @@ I named the integration `Elastic-Defend-WinSrv-AWS` and selected **Complete EDR 
 
 I moved on to building an automated workflow in **Tines** that will process the alert, generate an AI summary, and email it directly to me.
 
-I logged into my **Tines** workspace and clicked **New Story**, naming it `Admin_Sign-in_Detection` so I could easily identify it later.
+I logged into my **Tines** team-workspace and clicked **New Story**, naming it `Admin_Sign-in_Detection` so I could easily identify it later.
 
 ![Elastic Cloud - initialize](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/init_workflow.png)
 
@@ -170,7 +170,7 @@ I named the rule `Admin_Log-in_Detection`, set the severity to **High**, and mov
 
 ![Elastic Cloud - admin_rule](https://github.com/gkopacz/Cloud-SIEM-AI-Automation/blob/main/images/admin_detection_rule.png)
 
-In **Rule Actions**, I added my `Tines_Webhook_Admin_Sign-in` connector. I set it to run **Per rule run** and added a JSON payload to pass the rule name and description to Tines:
+In **Rule Actions**, I selected my `Tines_Webhook_Admin_Sign-in` connector. I set it to run **Per rule run** and added a JSON payload to pass the rule name and description to Tines:
 
 ```json
 {
